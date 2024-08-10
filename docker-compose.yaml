@@ -4,8 +4,8 @@ services:
     restart: always
     env_file:
       - .env
-#    volumes:
-#      - ./pgdata:/var/lib/postgresql/data/pgdata
+    volumes:
+      - ./pgdata:/var/lib/postgresql/data/pgdata
     ports:
       - '5432:5432'
     healthcheck:
@@ -20,10 +20,13 @@ services:
     env_file:
       - .env
     command: bash -c "./run.sh"
+    volumes:
+      - .:/code
     ports:
       - '8000:8000'
     depends_on:
       - db
 
-#volumes:
-#  postgres_data:
+volumes:
+  backend:
+  postgres_data:
