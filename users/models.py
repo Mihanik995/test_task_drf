@@ -1,4 +1,5 @@
 from django.contrib.auth.base_user import AbstractBaseUser, BaseUserManager
+from django.contrib.auth.models import AbstractUser
 from django.db import models
 
 class UserManager(BaseUserManager):
@@ -29,11 +30,13 @@ class UserManager(BaseUserManager):
             password=password
         )
 
+        user.is_staff = True
+        user.is_superuser = True
         user.save(using=self._db)
         return user
 
 
-class User(AbstractBaseUser):
+class User(AbstractUser):
     username = None
 
     email = models.EmailField(verbose_name='e-mail', unique=True)
